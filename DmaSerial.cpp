@@ -224,6 +224,8 @@ uint8_t DmaSerial::put(uint8_t* bytes, uint8_t length) {
 
 	// Turn on the transfer
 	uart->UART_PTCR = UART_PTCR_TXTEN;
-
+	// Wait until end of transmission
+	while ((uart->UART_TCR > 0) || (uart->UART_TNCR > 0));
+	
 	return i;
 }
